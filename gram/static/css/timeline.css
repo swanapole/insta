@@ -1,0 +1,72 @@
+.gallery-item {
+    position: relative;
+    flex: 1 0 22rem;
+    margin: 1rem;
+    color: black;
+    cursor: pointer;
+}
+.card-footer-section{
+  margin-left: 1rem;
+}
+.caption{
+  font-weight: normal;
+}
+.users-section{
+  /* position: fixed; */
+  /* top:10; */
+
+  /* margin-left: 820px; */
+  /* float: right; */
+  /* position: none; */
+}
+.panel{
+  margin-top:-671.5em;
+  margin-left: 2em;
+
+
+}
+.users-image {
+    width: calc(25.333% - 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0em;
+    margin-left: 2em;
+    border-radius: 50%;
+
+}
+.users-image img {
+  width: 50px;
+  height: 50px;
+  /* background-image: url('http://strawberry-fest.org/wp-content/uploads/2012/01/Coca-Cola-logo.jpg'); */
+  background-size: cover;
+  display: block;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  margin-left: 8em;
+  margin-top: 1em;
+}
+.profile-username{
+  margin-left: 1em;
+
+}
+a{
+  color:black;
+}
+a:link {
+    text-decoration: none;
+    color:black;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}

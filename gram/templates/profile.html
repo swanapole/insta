@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+
+{% block content %}
+{{block.super}}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../static/css/profile.css">
+
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+
+</head>
+
+<div class="container">
+
+  <div class="profile">
+
+    <div class="profile-image">
+
+      <img src="{{profile.profile_pic.url}}" class=" img img-responsive" >
+
+    </div>
+
+    <div class="profile-user-settings">
+
+      <h1 class="profile-user-name">{{profile.username}}</h1>
+
+      <button class="btn profile-edit-btn"><a href="{% url 'change_profile' profile.username %}" style="color:black;">Edit Profile</a></button>
+
+      <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true" data-toggle="modal" data-target="#settings"></i></button>
+
+    </div>
+
+    <div class="profile-stats">
+
+      <ul>
+        <li><span class="profile-stat-count">{{post_number}}</span> posts</li>
+        <li><span class="profile-stat-count">0</span> followers</li>
+        <li><span class="profile-stat-count">0</span> following</li>
+      </ul>
+
+    </div>
+
+    <div class="profile-bio">
+
+      <p><span class="profile-real-name">{{profile.name}}</span></p>
+      <p style="white-space:pre-wrap;">{{profile.bio | safe}}</p>
+
+    </div>
+
+  </div>
+  <!-- End of profile section -->
+
+  <div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content settings-modal">
+
+        <div class="modal-body">
+          <div class="text-center">
+            <ul class="list-group list-group-flush">
+              <!-- <li class="list-group-item"><button class="btn btn-primary btn-lg">Change Password</button></li> -->
+              <!-- <li class="list-group-item"><button class="btn btn-primary btn-lg">Dark Theme</button></li> -->
+              <li class="list-group-item"><button class="btn btn-primary btn-lg"><a href="{% url 'logout' %}" style="color:black;">Log Out</a></button></li>
+            </ul>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- End of container -->
+
+</header>
+
+<main>
+
+<div class="container">
+
+  <div class="gallery">
+
+    {% for post in posts %}
+
+
+
+    <div class="gallery-item" tabindex="0" data-toggle="modal" data-target="#{{post.id}}">
+
+      <img src="{{post.post.url}}?w=500&h=500&fit=crop" class="gallery-image"  id="likes-{{forloop.counter0}}" data-comid="{{post.id}}" >
+      <div class="gallery-item-info">
+        <ul>
+          <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i>{{post.likes}}</li>
+
+          <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i>{{comment_number}}</li>
+        </ul>
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <div class="custom-card-header">
+          <div class="modal-profile-image">
+            <img src="{{post.profile_pic.url}}?w=50&h=50&fit=crop" class="gallery-image" alt=""  width=8 height=8>
+          </div>
+              <p class="username">{{post.username}}</p>
+              <footer class="location">{{post.location}}</footer>
+          </div>
+
+        </div>
+        <div class="modal-body">
+              <img src="{{post.post.url}}?w=800&h=1000&fit=crop" class="gallery-image like" id="likes-{{forloop.counter0}}" data-comid="{{post.id}}">
+        </div>
+        <div class="modal-footer">
+          <p class="card-title username like"  id="likes-{{forloop.counter0}}" data-comid="{{post.id}}" >{{post.likes}} likes</p>
+          <p class="username">{{post.username}} <span class="caption">{{post.caption|truncatechars:300 |safe }}</span></p>
+
+
+        <div id="card{{post.id}}" class="mt-2">
+               {%for comment in comments%}
+                   {%if comment.post == post.id%}
+                   <p>
+                       <strong>{{comment.username.username}}</strong> {{comment.comment}}
+                   </p>
+                   {%endif%}
+               {%endfor%}
+        </div>
+      </div>
+        <div class="modal-footer">
+
+        <div class="text-center">
+          <form method="post" enctype="multipart/form-data" id='comment{{post.id}}' class="commentformsize">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+          </form>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+    $('#comment{{post.id}}').submit(function(event) {
+        comment = $(this).find('#id_comment').val();
+        post = {{post.id}};
+        $.ajax({
+            url: '/comment/',
+            data: {
+              'comment': comment,
+              'post': post
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#card{{image.id}}').append(
+                    `<p> <strong>${data.recent_comment_username}</strong> ${data.recent_comment}</p>`
+                );
+                $('#comment{{post.id}}')[0].reset();
+            }
+          });
+          event.preventDefault()
+     });
+</script>
+
+
+  {% endfor%}
+
+    </div>
+  <!-- End of gallery -->
+
+  <div class="loader"></div>
+</div>
+<!-- End of container -->
+</main>
+
+
+{% endblock %}

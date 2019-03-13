@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../static/css/profile.css">
+  <link rel="stylesheet" href="../static/css/base.css">
+
+</head>
+
+
+<div class="container">
+  <div class="row text-center">
+    {% if users %}
+    <h2> Found {{users|length}} users with the search term "{{message}}"</h2>
+    {% else %}
+    <h2> Found 0 users for the search term "{{message}}"</h2>
+    {% endif %}
+  </div>
+
+  {% if users %}
+  <div class="text-center">
+    <div class="panel" style="width: 40rem;">
+      <!-- <div class="custom-card-header"> -->
+      <div class="panel-body">
+        {% for user in users%}
+        <!-- <div class="custom-card-header"> -->
+
+        <div class="users-image">
+          <img src="{{user.profile_pic.url}}?w=50&h=50&fit=crop" class="gallery-image" alt=""  width=8 height=8>
+          <div class="search-username-center">
+          <p class="username profile-username"style="margin:auto;"><a href="/user-profile/{{user.id}}" style="color:black;"> {{user.username}}</a></p>
+        </div>
+        </div>
+        <!-- </div> -->
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+    {%endif %}
+</div>
+
+{% endblock %}

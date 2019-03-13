@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block content %}
+{{block.super}}
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/profile.css">
+  <link rel="stylesheet" href="../static/css/timeline.css">
+  <link rel="stylesheet" href="../static/css/navbar.css">
+</head>
+
+
+<div class="container">
+
+<div class="row">
+{% for post in posts %}
+<div class="col-md-10 col-lg-10">
+<div class="gallery-item">
+
+<div class="card" style="width: 75rem;">
+  <div class="custom-card-header">
+  <div class="modal-image">
+    <img src="{{post.profile_pic.url}}?w=50&h=50&fit=crop" class="gallery-image" alt=""  width=8 height=8>
+  </div>
+
+      <p class="username">{{post.username}}</p>
+      <footer class="location">{{post.location}}</footer>
+  </div>
+
+      <img src="{{post.post.url}}?w=800&h=1000&fit=crop" class="gallery-image">
+  <div class="card-body">
+    <div class="card-footer-section">
+    <h5 class="card-title username">{{post.likes}} likes</h5>
+    <p class="card-text username">{{post.username}} <span class="caption"> {{post.caption | safe}}</span></p>
+    <br>
+    <div id="card{{post.id}}" class="mt-2">
+           {%for comment in comments%}
+               {%if comment.post == post.id%}
+               <p>
+                   <strong>{{comment.username.username}}</strong> {{comment.comment}}
+               </p>
+               {%endif%}
+           {%endfor%}
+    </div>
+
+  </div>
+  </div>
+
+
+  <div class="modal-footer">
+
+  <div class="text-center">
+    <form method="post" enctype="multipart/form-data" id='comment{{post.id}}' class="commentformsize">
+      {% csrf_token %}
+      {% bootstrap_form form%}
+    </form>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript">
+  $('#comment{{post.id}}').submit(function(event) {
+      comment = $(this).find('#id_comment').val();
+      post = {{post.id}};
+      $.ajax({
+          url: '/comment/',
+          data: {
+            'comment': comment,
+            'post': post
+          },
+          dataType: 'json',
+          success: function (data) {
+              $('#card{{image.id}}').append(
+                  `<p> <strong>${data.recent_comment_username}</strong> ${data.recent_comment}</p>`
+              );
+              $('#comment{{post.id}}')[0].reset();
+          }
+        });
+        event.preventDefault()
+   });
+</script>
+{% endfor %}
+
+<div class="col-md-2">
+<div class="panel" style="width: 30rem;">
+  <!-- <div class="custom-card-header"> -->
+  <div class="panel-body">
+    {% for profile in profiles%}
+    <!-- <div class="custom-card-header"> -->
+
+    <div class="users-image">
+      <img src="{{profile.profile_pic.url}}?w=50&h=50&fit=crop" class="gallery-image" alt=""  width=8 height=8>
+      <p  class="profile-username">  <a href="/user-profile/{{profile.id}}">{{profile.username}}</a></p>
+
+    </div>
+    <!-- </div> -->
+
+
+
+    {% endfor %}
+
+  </div>
+</div>
+
+</div>
+
+
+<!-- </div> -->
+</div>
+{% endblock %}
