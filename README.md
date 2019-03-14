@@ -30,7 +30,7 @@ The program should navigate to sign up page when Sign Up is clicked on the navig
 
 The program should navigate to the login page when Login is clicked on the navigation bar:
 
-**Input Example: **Click on Login on the navigation bar
+**Input Example:** Click on Login on the navigation bar
 
 **Output Example:** Redirected to the login page
 
