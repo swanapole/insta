@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -133,7 +134,7 @@ ACCOUNT_ACTIVATION_DAYS = 5 #5 Day user account activation window before deactiv
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIR=[
     os.path.join(BASE_DIR,'static')
@@ -147,3 +148,5 @@ EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_HOST_USER='swanapoleshilla@gmail.com'
 EMAIL_HOST_PASSWORD='platinumz@shilla'
+
+django_heroku.settings(locals())
