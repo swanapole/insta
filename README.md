@@ -95,3 +95,5 @@ To run this program
 **python manage.py runserver**
 
 **access the application on this localhost address http://127.0.0.1:8000**
+
+## Prerequisites
