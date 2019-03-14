@@ -39,3 +39,4 @@ The program should direct the user to their timeline page when logged in:
 **Input Example:** Login as a user
 
 **Output Example:** Redirected to the timeline page with photos of users you follow
+T
