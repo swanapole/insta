@@ -115,3 +115,9 @@ You need the following to work on the project:
 https://insta333.herokuapp.com/
 
 ## Technologies used
+
+-Django
+
+-HTML/CSS
+
+-Bootstrap
