@@ -75,3 +75,15 @@ The program should add a like or remove a like when the heart icon is clicked on
 **Input Example:** Click on the heart icon
 
 **Output Example:** A like is added if it wasn't added before else it is removed
+
+## Setup Requirements
+
+To start using this project use the following commands:
+
+-git clone https://github.com/swanapole/Insta.git
+
+-cd Instagram-App
+
+-atom .
+
+-code .
