@@ -123,3 +123,7 @@ https://insta333.herokuapp.com/
 -Bootstrap
 
 ## Licence
+
+MIT License
+
+Copyright (c) 2019 SHILLA SWANAPOLE
