@@ -97,3 +97,15 @@ To run this program
 **access the application on this localhost address http://127.0.0.1:8000**
 
 ## Prerequisites
+
+You need the following to work on the project:
+
+-Python version 3.6
+
+-Django 2.0
+
+-Pip
+
+-virtualenv
+
+-A text Editor
