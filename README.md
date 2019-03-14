@@ -113,3 +113,5 @@ You need the following to work on the project:
 ## Link To Live Website
 
 https://insta333.herokuapp.com/
+
+## Technologies used
