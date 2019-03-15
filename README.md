@@ -52,6 +52,8 @@ The program should direct the user to a single image page when a specific image 
 
 **Output Example:** Redirected to a single image page with a comments' section beside the image
 
+## Setup Requirements
+
 To start using this project use the following commands:
 
 -git clone https://github.com/swanapole/Insta.git
